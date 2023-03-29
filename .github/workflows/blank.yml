@@ -3,9 +3,6 @@ on:
   push:
     branches:
       - main
-      - master
-  schedule:
-    - cron: '0 0 * * *' # Everyday at 12am
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -20,5 +17,5 @@ jobs:
         run: ssh-keyscan -p 22 -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
-        run: rsync -avz -e "ssh -p 22" . root@${{ secrets.SSH_HOST }}:/var/www
+        run: rsync -avz -e "ssh -p 22" /. root@${{ secrets.SSH_HOST }}:/var/www
 
